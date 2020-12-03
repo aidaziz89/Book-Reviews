@@ -1,0 +1,53 @@
+<label for="">Logo<img src="" alt=""></label>
+<label for="">Book Reviews<img src="" alt=""></label>
+
+<h2>Details About This Book</h2>
+
+    <h3>Title: <%= buku["title"]%></h3>
+    <p> <b>Review By:</b> <%= buku["author"]%>
+    </p>
+
+    <p><h4>Reviews: </h4><%= buku["content"]%></p>
+    <img src="<%= buku["image_url"]%>" alt="">
+
+    <br>
+
+<% if logged_in? %>
+    <a href="/comments/<%= buku["title"]%>/new"><button>Comment</button></a>
+
+    <a href="/reviews/new"><button> Wanna reviews about your books?</button></a>
+    <br>
+    <% comments.each do |comment| %> 
+    <p><b>Comment by</b> <%= comment["first_name"]%>  : " <%= comment["comment"]%> "
+    <a href="/comments/<%= comment["id"]%>/edit">Edit</a>
+    </p>
+
+    <% end %>
+    <br>
+    <form action="/sessions" method="POST">
+        <input type="hidden" name="_method" value="delete">
+        <button>Log Out</button>
+    </form>
+
+
+<% else %>
+    <button>Comment</button>
+    <br>
+    <br>
+    <a href="/signup"><button>Sign Up</button></a>
+    <a href="/login"><button>Log In</button></a>
+
+    <% comments.each do |comment| %> 
+    <p><b>Comment by </b><%= comment["first_name"]%>  : " <%= comment["comment"]%> "</p>
+    
+    <% end %>
+<% end %>
+
+
+<br>
+<a href="/"><button>Back To Homepage</button></a>
+    
+
+
+    
+

@@ -1,0 +1,26 @@
+<a href="/signup"><button>Sign Up</button></a>
+<a href="/login"><button>Log In</button></a>
+
+for details
+<label for="">Review By: </label>
+<input type="text" name="author"> 
+
+
+get '/comments/:id/edit' do
+  author = params["id"]
+  comments = run_sql("SELECT * FROM comments WHERE id=#{author}")
+  comment = comments[0]
+
+  erb :'/comments/edit', locals: {
+    comment: comment
+  }
+end
+
+patch '/comment/:id' do
+  author = params["id"]
+  comment = params["comments"]
+
+  run_sql("UPDATE comments SET comment='#{comment}' WHERE id=#{author}")
+
+  redirect '/'
+end

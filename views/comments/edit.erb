@@ -1,0 +1,9 @@
+<h1>Edit Your Comments</h1>
+
+<form action="/comment/<%= comment["id"] %>" method="POST">
+    <input type="hidden" name="_method" value="patch">
+    
+    <input type="text" name="comments" value="<%= comment['comment'] %>">
+   
+    <button>Update Comment</button>
+</form>

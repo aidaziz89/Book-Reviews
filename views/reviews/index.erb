@@ -1,0 +1,57 @@
+<style>
+section {
+    display: flex;
+}
+.parenting, .kids {
+    width: 50%;
+} 
+</style>
+
+<label for="">Logo<img src="" alt=""></label>
+<label for="">Book Reviews<img src="" alt=""></label>
+
+<% if logged_in? %>
+    <h3>Welcome to Book Reviews <%= current_user['first_name'] %></h3>
+
+    <form action="/sessions" method="POST">
+        <input type="hidden" name="_method" value="delete">
+        <button>Log Out</button>
+    </form>
+
+<% else %>
+    <a href="/signup"><button>Sign Up</button></a>
+    <a href="/login"><button>Log In</button></a>
+
+<% end %>
+
+<h2>RECOMMENDATION BOOKS</h2>
+<section>
+
+<div class="parenting">
+<h3>Genre: Parenting</h3>
+<% parenting_books.each do |book| %> 
+    <img src="<%= book["image_url"]%>" alt="">
+    <br> 
+    <a href="/reviews/details/<%= book["title"]%>"><button>More Info</button></a>
+<% end %>
+</div>
+
+
+
+<div class="kids">
+<h3>Genre: Kids</h3>
+<% kids_books.each do |book| %> 
+    <img src="<%= book["image_url"]%>" alt="">
+    <br>
+    <a href="/reviews/details/<%= book["title"]%>"><button>More Info</button></a>
+<br>
+<% end %>
+</div>
+</section>
+
+<footer>
+<p>FB<img src="" alt=""></p>
+<p>Twitter<img src="" alt=""></p>
+<p>Pinterest<img src="" alt=""></p>
+</footer>
+
