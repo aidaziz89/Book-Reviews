@@ -18,7 +18,7 @@
     <a href="/reviews/new"><button> Wanna reviews about your books?</button></a>
     <br>
     <% comments.each do |comment| %> 
-    <p><b>Comment by</b> <%= comment["first_name"]%>  : " <%= comment["comment"]%> "
+    <p><b>Comment by</b> <%= comment["user_name"]%>  : " <%= comment["comment"]%> "
     <a href="/comments/<%= comment["id"]%>/edit">Edit</a>
     </p>
 

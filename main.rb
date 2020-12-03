@@ -78,6 +78,7 @@ end
 
 post '/reviews' do
   book_title = params["title"]
+  single_title = check_single_quote(book_title)
   first_name = current_user()["first_name"]
   #book_author = params["author"]
   book_content = params["content"]
@@ -85,7 +86,7 @@ post '/reviews' do
   book_image = params["image_url"]
   single_content = check_single_quote(book_content)
 
-  results = run_sql("INSERT INTO reviews(title, author, content, genre, image_url) VALUES('#{book_title}', '#{first_name}', '#{single_content}', '#{book_genre}', '#{book_image}')")
+  results = run_sql("INSERT INTO reviews(title, author, content, genre, image_url) VALUES('#{single_title}', '#{first_name}', '#{single_content}', '#{book_genre}', '#{book_image}')")
 
   redirect '/'
 end
@@ -149,10 +150,11 @@ end
 
 post '/comments/:title' do
   comments = params["comments"]
-  first_name = current_user()["first_name"]
+  user_id = current_user()["id"]
+  user_name = current_user()["first_name"]
   book_title = params["title"]
 
-  run_sql("INSERT INTO comments(comment, first_name, title) VALUES('#{comments}', '#{first_name}', '#{book_title}')")
+  run_sql("INSERT INTO comments(comment, title, user_id, user_name) VALUES('#{comments}', '#{book_title}', '#{user_id}', '#{user_name}')")
 
   redirect '/'
 end
@@ -175,6 +177,9 @@ patch '/comment/:id' do
 
   redirect '/'
 end
+
+
+
 
 
 

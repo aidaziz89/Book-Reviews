@@ -24,3 +24,104 @@ patch '/comment/:id' do
 
   redirect '/'
 end
+
+
+Form New comments.erb
+
+<form action="/comments/<%= book_title %>" method="POST">
+    <label for=""> Your comments : </label>
+    <input type="text" name="comments">
+
+    <button>Submit</button>
+</form>
+
+From Edit Comments erb file, make file edit.erb
+
+<h1>Edit Your Comments</h1>
+
+<form action="/comment/<%= comment["id"] %>" method="POST">
+    <input type="hidden" name="_method" value="patch">
+    
+    <input type="text" name="comments" value="<%= comment['comment'] %>">
+   
+    <button>Update Comment</button>
+</form>
+
+From comment rb File, paste it in main.rb
+
+get '/comments/:title/new' do
+  book_title = params["title"]
+  
+  erb :'/comments/new', locals: {
+    book_title: book_title
+  }
+end
+
+post '/comments/:title' do
+  comments = params["comments"]
+  first_name = current_user()["first_name"]
+  book_title = params["title"]
+
+  run_sql("INSERT INTO comments(comment, first_name, title) VALUES('#{comments}', '#{first_name}', '#{book_title}')")
+
+  redirect '/'
+end
+
+
+From edit rb File, paste it in main.rb
+
+get '/comments/:id/edit' do
+  author = params["id"]
+  comments = run_sql("SELECT * FROM comments WHERE id=#{author}")
+  comment = comments[0]
+
+  erb :'/comments/edit', locals: {
+    comment: comment
+  }
+end
+
+patch '/comment/:id' do
+  author = params["id"]
+  comment = params["comments"]
+
+  run_sql("UPDATE comments SET comment='#{comment}' WHERE id=#{author}")
+
+  redirect '/'
+end
+
+From details.erb File
+
+<% if logged_in? %>
+    <a href="/comments/<%= buku["title"]%>/new"><button>Comment</button></a>
+
+    <a href="/reviews/new"><button> Wanna reviews about your books?</button></a>
+    <br>
+    <% comments.each do |comment| %> 
+    <p><b>Comment by</b> <%= comment["first_name"]%>  : " <%= comment["comment"]%> "
+    <a href="/comments/<%= comment["id"]%>/edit">Edit</a>
+    </p>
+
+    <% end %>
+    <br>
+    <form action="/sessions" method="POST">
+        <input type="hidden" name="_method" value="delete">
+        <button>Log Out</button>
+    </form>
+
+
+<% else %>
+    <button>Comment</button>
+    <br>
+    <br>
+    <a href="/signup"><button>Sign Up</button></a>
+    <a href="/login"><button>Log In</button></a>
+
+    <% comments.each do |comment| %> 
+    <p><b>Comment by </b><%= comment["first_name"]%>  : " <%= comment["comment"]%> "</p>
+    
+    <% end %>
+<% end %>
+
+
+<br>
+<a href="/"><button>Back To Homepage</button></a>
