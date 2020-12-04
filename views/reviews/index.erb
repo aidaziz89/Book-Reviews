@@ -1,14 +1,40 @@
 <style>
-section {
-    display: flex;
-}
-.parenting, .kids {
-    width: 50%;
-} 
-</style>
 
-<label for="">Logo<img src="" alt=""></label>
-<label for="">Book Reviews<img src="" alt=""></label>
+section {
+    width: 1000px;
+    /* margin: 10px auto; */
+}
+
+.parenting, .kids {
+    display: flex;
+    flex flex-direction: column
+    margin: 5px;
+} 
+
+
+h2 {
+    font-family: monospace;
+    color: darkcyan;
+    border: 5px double;
+    border-left: none;
+    border-right: none;
+    width: fit-content;
+    padding: 10px;
+}
+
+img {
+    width: 150px;
+}
+
+footer {
+    margin: 50px;
+    text-align: center;
+}
+
+footer img {
+    width: 30px;
+}
+</style>
 
 <% if logged_in? %>
     <h3>Welcome to Book Reviews <%= current_user['first_name'] %></h3>
@@ -27,31 +53,32 @@ section {
 <h2>RECOMMENDATION BOOKS</h2>
 <section>
 
-<div class="parenting">
 <h3>Genre: Parenting</h3>
+<div class="parenting">
+
 <% parenting_books.each do |book| %> 
     <img src="<%= book["image_url"]%>" alt="">
     <br> 
-    <a href="/reviews/details/<%= book["title"]%>"><button>More Info</button></a>
+    <a href="/reviews/details/<%= book["title"]%>"><button clss="book">More Info</button></a>
 <% end %>
 </div>
 
 
-
-<div class="kids">
 <h3>Genre: Kids</h3>
+<div class="kids">
+
 <% kids_books.each do |book| %> 
     <img src="<%= book["image_url"]%>" alt="">
     <br>
-    <a href="/reviews/details/<%= book["title"]%>"><button>More Info</button></a>
+    <a href="/reviews/details/<%= book["title"]%>"><button class="book">More Info</button></a>
 <br>
 <% end %>
 </div>
 </section>
 
 <footer>
-<p>FB<img src="" alt=""></p>
-<p>Twitter<img src="" alt=""></p>
-<p>Pinterest<img src="" alt=""></p>
+<a href="https://www.facebook.com"><img src="https://s.gr-assets.com/assets/site_footer/footer_facebook-ea4ab848f8e86c5f5c98311bc9495a1b.svg" alt=""></a>
+<a href="https://www.twitter.com"><img src="https://s.gr-assets.com/assets/site_footer/footer_twitter-126b3ee80481a763f7fccb06ca03053c.svg" alt=""></a>
+<a href="https://www.instagram.com"><img src="https://s.gr-assets.com/assets/site_footer/footer_instagram-d59e3887020f12bcdb12e6c539579d85.svg" alt=""></a>
 </footer>
 

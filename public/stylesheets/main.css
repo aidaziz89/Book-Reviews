@@ -1,0 +1,13 @@
+body {
+    background-color: moccasin;
+    background-image: url("https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjU2fHxwbGFpbiUyMGJhY2tncm91bmR8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60");
+    background-size: cover;
+    width: 600px;
+    margin: 15px;
+}
+
+.logo {
+    width: 200px;
+    margin: 10px;
+}
+

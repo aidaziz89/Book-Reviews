@@ -1,9 +1,30 @@
+<style>
+main {
+    margin: 10px;
+}
+input {
+    display: block;
+    margin-bottom: 10px;
+}
+
+button {
+    margin-bottom: 10px;
+}
+</style>
+
+<main>
 <h1>Edit Your Comments</h1>
 
 <form action="/comment/<%= comment["id"] %>" method="POST">
     <input type="hidden" name="_method" value="patch">
     
-    <input type="text" name="comments" value="<%= comment['comment'] %>">
+    <textarea name="comments" id="" cols="50" rows="10"><%= comment['comment'] %></textarea>
+
+     <br>
    
     <button>Update Comment</button>
 </form>
+
+<a href="/"><button>Homepage</button></a>
+
+</main>

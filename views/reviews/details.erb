@@ -1,51 +1,136 @@
-<label for="">Logo<img src="" alt=""></label>
-<label for="">Book Reviews<img src="" alt=""></label>
 
+<style>
+
+main {
+    display: flex;
+}
+
+.cover {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.content {
+    border: 2px dotted;
+    padding: 10px;
+    text-align: justify;
+    margin: 10px;
+    float: left;
+    width: 70%;
+}
+
+.image {
+    width: 300px;
+    margin-top: 100px;
+    text-align: center;
+    width: 25%;
+}
+
+.comment {
+    padding: 5px;
+    margin: 5px;
+}
+
+.komen {
+    font-family: monospace;
+    color: darkcyan;
+    font-size: 20px;
+    border: 5px double;
+    border-left: none;
+    border-right: none;
+    padding: 10px;
+    width: fit-content;
+}
+
+h2 {
+    font-family: monospace;
+    color: darkcyan;
+    font-size: 30px;
+    border: 5px double;
+    border-left: none;
+    border-right: none;
+    width: fit-content;
+    padding: 10px;
+}
+
+
+</style>
 <h2>Details About This Book</h2>
+<main>
 
-    <h3>Title: <%= buku["title"]%></h3>
-    <p> <b>Review By:</b> <%= buku["author"]%>
-    </p>
+<section class="cover">
+    <div class="content">
+        <h3>Title: <%= buku["title"]%></h3>
+        <p> <b>Review By:</b> <%= buku["author"]%>
+        </p>
 
-    <p><h4>Reviews: </h4><%= buku["content"]%></p>
-    <img src="<%= buku["image_url"]%>" alt="">
+        <p><h4>Reviews: </h4><%= buku["content"]%></p>
+    </div>
 
+    <div class="image">
+        <img src="<%= buku["image_url"]%>" alt="">
+    </div>
     <br>
+</section>
+</main>
 
-<% if logged_in? %>
-    <a href="/comments/<%= buku["title"]%>/new"><button>Comment</button></a>
+<footer>
 
-    <a href="/reviews/new"><button> Wanna reviews about your books?</button></a>
-    <br>
-    <% comments.each do |comment| %> 
-    <p><b>Comment by</b> <%= comment["user_name"]%>  : " <%= comment["comment"]%> "
-    <a href="/comments/<%= comment["id"]%>/edit">Edit</a>
-    </p>
+    <% if logged_in? %>
+        <a href="/comments/<%= buku["title"]%>/new"><button>Comment</button></a>
 
-    <% end %>
+        <a href="/reviews/new"><button> Wanna reviews about your books?</button></a>
+        <br>
+
+<h4 class="komen">Comments</h4>
+
+<section class="comment">  
+  
+    <div>
+        <% comments.each do |comment| %>
+            <p><b>Comment by</b> <%= comment["user_name"]%>  : " <%= comment["comment"]%> "</p>
+
+            <% if comment["user_name"] == current_user["first_name"]%>
+                <p><a href="/comments/<%= comment["id"]%>/edit">Edit</a></p>
+
+                <form action="/comments/<%= comment['id'] %>" method="POST">
+                    <input type="hidden" name="_method" value="delete">
+                    <button>Delete</button>
+                </form>
+            <% end %>
+
+        <% end %>
+
+    </div>
+</section>
+
     <br>
     <form action="/sessions" method="POST">
         <input type="hidden" name="_method" value="delete">
         <button>Log Out</button>
     </form>
 
+<section>
 
-<% else %>
-    <button>Comment</button>
-    <br>
-    <br>
-    <a href="/signup"><button>Sign Up</button></a>
-    <a href="/login"><button>Log In</button></a>
+    <% else %>
+        <button>Comment</button>
+        <br>
+        <br>
+        <a href="/signup"><button>Sign Up</button></a>
+        <a href="/login"><button>Log In</button></a>
 
-    <% comments.each do |comment| %> 
-    <p><b>Comment by </b><%= comment["first_name"]%>  : " <%= comment["comment"]%> "</p>
-    
+        <% comments.each do |comment| %> 
+        <p><b>Comment by </b><%= comment["user_name"]%>  : " <%= comment["comment"]%> "</p>
+        
+        <% end %>
     <% end %>
-<% end %>
+
+</section>
+</footer>
 
 
 <br>
-<a href="/"><button>Back To Homepage</button></a>
+<a href="/"><button>Homepage</button></a>
     
 
 

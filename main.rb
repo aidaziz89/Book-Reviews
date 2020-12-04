@@ -142,9 +142,12 @@ end
 
 get '/comments/:title/new' do
   book_title = params["title"]
+  books = run_sql("SELECT * FROM reviews WHERE title = '#{book_title}'")
+  buku = books.to_a[0]
   
   erb :'/comments/new', locals: {
-    book_title: book_title
+    book_title: book_title,
+    buku: buku
   }
 end
 
@@ -160,8 +163,8 @@ post '/comments/:title' do
 end
 
 get '/comments/:id/edit' do
-  author = params["id"]
-  comments = run_sql("SELECT * FROM comments WHERE id=#{author}")
+  comment_id = params["id"]
+  comments = run_sql("SELECT * FROM comments WHERE id=#{comment_id}")
   comment = comments[0]
 
   erb :'/comments/edit', locals: {
@@ -170,10 +173,17 @@ get '/comments/:id/edit' do
 end
 
 patch '/comment/:id' do
-  author = params["id"]
+  comment_id = params["id"]
   comment = params["comments"]
 
-  run_sql("UPDATE comments SET comment='#{comment}' WHERE id=#{author}")
+  run_sql("UPDATE comments SET comment='#{comment}' WHERE id=#{comment_id}")
+
+  redirect '/'
+end
+
+delete '/comments/:id' do
+  comment_id = params["id"]
+  run_sql("DELETE FROM comments WHERE id=#{comment_id};")
 
   redirect '/'
 end

@@ -1,12 +1,20 @@
+<style>
+input {
+    display: block;
+}
+
+</style>
+
 <h2>Log In Here</h2>
 
 <%= error_message %>
 <form action="/sessions" method="POST">
+    <br>
     <label for=""> Email : </label>
     <input type="text" name="email">
-
+    <br>
     <label for="">Password :</label>
     <input type="password" name="password">
-
+    <br>
     <button>Submit</button>
 </form>

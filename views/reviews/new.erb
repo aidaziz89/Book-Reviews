@@ -1,17 +1,53 @@
+<style>
+main {
+    margin: 10px;
+}
+input {
+    display: block;
+}
+
+button {
+    margin: 5px;
+}
+h2 {
+    font-family: monospace;
+    color: darkcyan;
+    border: 5px double;
+    border-left: none;
+    border-right: none;
+    width: fit-content;
+    padding: 10px;
+    font-size: 30px;
+}
+    
+</style>
+<main>
 <h2>Reviews About Your Book</h2>
 
-<form action="/reviews" method="POST">
-    <label for="">Title: </label>
-    <input type="text" name="title">
+    <form action="/reviews" method="POST">
+        <label for="">Title: </label>
+        <input type="text" name="title" size="50">
+        <br>
 
-    <label for="">Content: </label>
-    <input type="text" name="content">
+        <label for="">Content: </label>
+        <br>
+        <textarea name="content" id="" cols="50" rows="15"></textarea>
+        <br>
+        <br>
+        <label for="">Genre: </label>
+        <select name="genre" id="">
+            <option value="parenting">Parenting</option>
+            <option value="kids">Kids</option>
+        </select>
+        <br>
+        <br>
+        <label for="">Image's Book: </label>
+        <input type="text" name="image_url" size="50">
 
-    <label for="">Genre: </label>
-    <input type="text" name="genre">
+        <br>
+        <button>Post My Review</button>
 
-    <label for="">Image's Book: </label>
-    <input type="text" name="image_url">
-    <button>Post My Review</button>
+    </form>
 
-</form>
+<a href="/"><button>Homepage</button></a>
+</main>

@@ -1,9 +1,54 @@
-<h2>Write Your Comments</h2>
-    
-    <form action="/comments/<%= book_title %>" method="POST">
-    <label for=""> Your comments : </label>
-    <input type="text" name="comments">
-    
+<style>
+main {
+    margin: 10px;
+}
 
-    <button>Submit</button>
-</form>
+main {
+    display: flex;
+}
+
+input {
+    display: block;
+}
+
+.review {
+    width: 45%;
+}
+
+.komen {
+    width: 50%;
+}
+
+
+
+</style>
+
+<h3>Title: <%= buku["title"]%></h3>
+<main>
+    
+    <section class="review">
+        <p> <b>Review By:</b> <%= buku["author"]%>
+        </p>
+        <img src="<%= buku["image_url"]%>" alt="">
+
+        <br>
+
+    </section>
+   
+    <section class="komen">
+        <h2>Write Your Comments</h2>
+            <form action="/comments/<%= book_title %>" method="POST">
+            <label for=""> Your comments : </label>
+            <br>
+            <textarea name="comments" id="" cols="40" rows="10"></textarea>
+            <br>
+            <br>
+            <button>Submit</button>
+            <a href="/"><button>Homepage</button></a>
+        </form>
+        
+    </section>
+</main>
+
+
+
